@@ -1,0 +1,10 @@
+const c = 1;
+const d = 2;
+console.log(c + d);
+console.log(c - d);
+console.log(c * d);
+console.log(c / d);
+console.log(c % d);
+console.log(Math.floor(c / d));
+console.log(Math.sqrt(c));
+console.log(Math.pow(c, d));
