@@ -33,7 +33,7 @@ class CarProperties {
 
 
     kuvaKuulInfo(): void {
-        console.log(`Läbivus: ${this.läbisõit}`);
+        console.log(`Läbisõit: ${this.läbisõit}`);
         console.log(`Piduritüüp: ${this.piduritüüp}`);
         console.log(`Tootmisaasta: ${this.tootmisaasta}`);
         console.log(`Vedrustuse süsteemitüüp: ${this.vedrustuseSüsteemiTüüp}`);
@@ -41,8 +41,8 @@ class CarProperties {
 
     kuvaMugavusInfo(): void {
         console.log(`Värv: ${this.autoVärv}`);
-        console.log(`Hoiuruumi maht: ${this.hoiuruumiMaht}`);
-        console.log(`Tootmisaasta: ${this.tootmisaasta}`);
+        console.log(`Hoiuruumi maht: ${this.hoiuruumiMaht} liitrit`);
+        console.log(`Tootmisaasta: ${this.tootmisaasta} a`);
         console.log(`Keretüüp: ${this.keretüüp}`);
         console.log(`Istmete arv: ${this.istmeteArv}`);
     }
