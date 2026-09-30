@@ -1,73 +1,102 @@
-class PuuLiik {
-    nimi: string;
-    värv: string;
-    pinnavorm: ImageBitmap;
+/*     class PuuLiik {
+        nimi: string;
+        värv: string;
+        pinnavorm: string;
 
-    constructor(nimi: string, värv: string, pinnavorm: ImageBitmap) {
-        this.nimi = nimi,
-        this.värv = värv,
-        this.pinnavorm = pinnavorm;
-    }    
-    public draw(x: number, y: number, canvas: HTMLCanvasElement): void {
-        const ctx = canvas.getContext("2d");
-        if(ctx === null) {
-            return;
+        constructor(nimi: string, värv: string, pinnavorm: string) {
+            this.nimi = nimi,
+            this.värv = värv, 
+            this.pinnavorm = pinnavorm;
         }
-        ctx.fillStyle = this.color;
 
-        ctx.fillRect(x-3,y,6,20)
+        public draw(x: number, y:number, canvas: HTMLCanvasElement): void {
+            const ctx = canvas.getContext("2d");
+            if (ctx === null) {
+                return;
+            }
+            ctx.fillStyle = this.värv;
 
-        ctx.beginPath();
-        ctx.arc(x,y-10,15,0, Math.PI * 2);
-        ctx.fill();
+            ctx.fillRect(x-3,y,6,20) //tüvi
 
-        console.log('joonistan ${this.nimi} puud')
-    }
-}
+            ctx.beginPath();
+            ctx.arc(x,y-10,15,0, Math.PI ^ 2);
+            ctx.fill();
 
-class PuuVabrik {
-    static puuLiigid: PuuLiik[] = []
-
-    public static puuTüüp(nimi: string, värv: string, pinnavorm: ImageBitmap) {
-        let searchable = new PuuLiik(nimi, värv, pinnavorm)
-        let tüüp = PuuVabrik.puuLiigid.find(searchable[0])
-        if (tüüp == null) {
-            tüüp = new PuuLiik(nimi, värv, pinnavorm)
-            PuuVabrik.puuLiigid.push(tüüp)
+            console.log(`joonistan ${this.nimi} puud`)
         }
-        return tüüp
     }
 
 
-}
+    class PuuVabrik {
 
-class Puu {
-    x: number;
-    y: number;
-    tüüp: PuuLiik;
-
-    constructor(x: number, y: number, tüüp: PuuLiik) {
-        this.x = x
-        this.y = y
-        this.tüüp = tüüp;
+        static puuLiigid: PuuLiik[] = []
+        public static puuTüüp(nimi: string, värv: string, pinnavorm: string): PuuLiik {
+            let tüüp = PuuVabrik.puuLiigid.find(p => p.nimi == nimi && p.värv == värv && p.pinnavorm == pinnavorm)
+            if (tüüp == null){
+                tüüp = new PuuLiik(nimi, värv, pinnavorm)
+                PuuVabrik.puuLiigid.push(tüüp)
+            }
+            return tüüp; 
+        
+        }
     }
-    draw(canvas: HTMLCanvasElement): void {
-        this.tüüp.draw(canvas, this.x, this.y)
-    }
-}
 
-class Mets {
-    puudMetsas: Puu[]
+    class Puu {
+        x: number;
+        y: number;
+        tüüp: PuuLiik;
 
-    public istutaPuu
-    (x: number, y: number, nimi: string, värv: string, pinnavorm: ImageBitmap): void
-    {
-        let tüüp: PuuLiik = PuuVabrik.puuTüüp(nimi,värv,pinnavorm)
-        let puu = new Puu(x,y,tüüp)
-        this.puudMetsas.push(puu)
-    }
-    drawCanvas(canvas: HTMLCanvasElement): void {
-        this.puudMetsas.forEach(tree => {tree.draw(canvas)});
-    }
-}
+        constructor(x: number, y: number, tüüp: PuuLiik) {
+            this.x = x
+            this.y = y
+            this.tüüp = tüüp;
+        }
 
+        draw(canvas: HTMLCanvasElement): void {
+            this.tüüp.draw( this.x, this.y,canvas)
+        }
+    }
+
+    class Mets {
+        puudMetsas: Puu[] = [];
+
+        public istutaPuu(x: number, y: number, nimi: string, värv: string, pinnavorm: string): void {
+                let tüüp: PuuLiik = PuuVabrik.puuTüüp(nimi,värv,pinnavorm)
+                let puu = new Puu(x, y, tüüp)
+                this.puudMetsas.push(puu)
+        }
+        drawCanvas(canvas: HTMLCanvasElement): void {
+            this.puudMetsas.forEach(tree => {tree.draw(canvas)})
+        }
+
+
+    }
+
+    const canvas = document.getElementById("canvas") as HTMLCanvasElement;
+    const mets = new Mets();
+
+    mets.istutaPuu(
+        50,
+        100,
+        "Tamm",
+        "Roheline",
+        "tamm.png"
+    )
+
+    mets.istutaPuu(
+        50,
+        100,
+        "Kask",
+        "HeleRoheline",
+        "kask.png"
+    )
+
+    mets.istutaPuu(
+        50,
+        100,
+        "Jaapani Kirss",
+        "Roosa",
+        "sakura.png"
+    )
+
+    mets.drawCanvas(canvas); */
