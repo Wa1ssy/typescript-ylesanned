@@ -1,0 +1,75 @@
+//Siin asub mediaatori liides. Lennukid teavitavad lennujuhtimistorni, selle asemel et suhelda otse üksteisega
+interface Lennujuhtija {
+    teavita(sender: object, event: string): void;
+}
+
+// Lennujuhtimistornis on lennujuhtijad, kes kordineerivad erinevaid lennukeid
+class Lennujuhtimistorn implements Lennujuhtija {
+    private reisiLennuk: ReisiLennuk;
+    private kaubaLennuk: KaubaLennuk;
+
+    constructor(reisiLennuk: ReisiLennuk, kaubaLennuk: KaubaLennuk) {
+        this.reisiLennuk = reisiLennuk;
+        this.reisiLennuk.seaLennujuhtija(this);
+        this.kaubaLennuk = kaubaLennuk;
+        this.kaubaLennuk.seaLennujuhtija(this);
+    }
+
+    public teavita(sender: object, event: string): void {
+        if (event === "KÜSIN_LUBA_ÕHKUTÕUSU") {
+            console.log("Lennujuhtimistorn: Õhkutõuu luba palutud.");
+            this.kaubaLennuk.hoiaAsukohta();
+            this.reisiLennuk.tõuseÕhku();
+        }
+
+        if (event === "KÜSIN_LUBA_MAANDUMISEKS") {
+            console.log("Lennujuhtimistorn: Maandumist luba palutud.");
+            this.kaubaLennuk.eemalduRajalt();
+            this.reisiLennuk.maandu();
+        }
+    }
+}
+
+class Lennuk {
+    protected lennutorn!: Lennujuhtimistorn;
+
+    public seaLennujuhtija(lennutorn: Lennujuhtimistorn): void {
+        this.lennutorn = lennutorn;
+    }
+}
+
+//reisijalennuk
+class ReisiLennuk extends Lennuk {
+    public küsiÕhkutõusuLuba(): void {
+        console.log("Reisilennuk küsib luba õhkutõusuks");
+        this.lennutorn.teavita(this, "KÜSIN_LUBA_ÕHKUTÕUSU");
+    }
+
+    public tõuseÕhku(): void {
+        console.log("Õhkutõus toimumas");
+    }
+
+    public küsiMaandumiseLuba(): void {
+        console.log("Reisilennuk küsib luba maandumiseks");
+        this.lennutorn.teavita(this, "KÜSIN_LUBA_MAANDUMISEKS");
+    }
+
+    public maandu(): void {
+        console.log("Lennuk maandub");
+    }
+}
+
+class KaubaLennuk extends Lennuk {
+    public küsiÕhkutõusuLuba(): void {
+        console.log("Kaubalennuk küsib luba õhkutõusuks");
+        this.lennutorn.teavita(this, "KÜSIN_LUBA_ÕHKUTÕUSU");
+    }
+
+    public hoiaAsukohta(): void {
+        console.log("Kaubalennuk hoiab asukohta");
+    }
+
+    public eemalduRajalt(): void {
+        console.log("Kaubalennuk eemaldub rajalt");
+    }
+}
