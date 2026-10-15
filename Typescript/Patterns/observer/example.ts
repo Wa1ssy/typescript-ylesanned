@@ -6,6 +6,7 @@ interface Subjekt {
     detach(jälgija: Jälgija): void
     //Teavitusmeetod
     teavita(): void
+    olek: number
 }
 
 //Subjekt omab mingit tähtsat olekut ja teavitab jälgijaid kui olek muutub
